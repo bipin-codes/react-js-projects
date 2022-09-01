@@ -1,16 +1,27 @@
 import { Component } from "react";
 import Card from "../card/card.component";
 import "./card-list.style.css";
-export default class CardList extends Component {
-  render() {
-    const { item } = this.props;
+// export default class CardList extends Component {
+//   render() {
+//     const { item } = this.props;
 
-    return (
-      <div className="card-list">
-        {item.map((monster) => {
-          return <Card monster={monster} key={monster.id}></Card>;
-        })}
-      </div>
-    );
-  }
-}
+//     return (
+//       <div className="card-list">
+//         {item.map((monster) => {
+//           return <Card monster={monster} key={monster.id}></Card>;
+//         })}
+//       </div>
+//     );
+//   }
+// }
+
+const CardList = ({ item }) => {
+  return (
+    <div className="card-list">
+      {item.map((monster) => {
+        return <Card monster={monster} key={monster.id}></Card>;
+      })}
+    </div>
+  );
+};
+export default CardList;
