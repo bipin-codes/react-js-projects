@@ -10,10 +10,19 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDoc, setDoc, getFirestore, doc } from "firebase/firestore";
+import {
+  getDoc,
+  setDoc,
+  getFirestore,
+  doc,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { collection } from "firebase/firestore";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyATXLpXvoS-tcOJC5yrtUTKvb9hfnrjCYM",
@@ -82,3 +91,36 @@ export const signOutUser = async () => {
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+// upload JSON file to the firebase.
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("Done");
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories");
+
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapShot) => {
+    const { title, items } = docSnapShot.data();
+    acc[title.toLowerCase()] = items;
+
+    return acc;
+  }, {});
+
+  return categoryMap;
+};
