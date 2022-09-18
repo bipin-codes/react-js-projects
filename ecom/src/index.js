@@ -5,8 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 // import { UserProvider } from "./contexts/user.context";
-import { CartProvider } from "./contexts/cart.context";
-import { CategoriessProvider } from "./contexts/categories.context";
+// import { CartProvider } from "./contexts/cart.context";
+// import { CategoriessProvider } from "./contexts/categories.context";
 import { Provider } from "react-redux";
 import { store } from "./utils/store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,11 +15,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         {/* <UserProvider> */}
-        <CategoriessProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </CategoriessProvider>
+        {/* <CategoriessProvider> */}
+        {/* <CartProvider> */}
+        <App />
+        {/* </CartProvider> */}
+        {/* </CategoriessProvider> */}
         {/* </UserProvider> */}
       </BrowserRouter>
     </Provider>
