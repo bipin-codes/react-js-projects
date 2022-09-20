@@ -72,7 +72,7 @@ export const createUserDocumentFromAuth = async (userAuth, additional) => {
       console.log(`Error creating user ${e}`);
     }
   }
-  return userDocRef; //if user already exists
+  return userSnapshot; //if user already exists
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -116,4 +116,17 @@ export const getCategoriesAndDocuments = async () => {
 
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((docSnapShot) => docSnapShot.data());
+};
+
+export const getCurrentUser = () => {
+  return new Promise((res, rej) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        res(userAuth);
+      },
+      rej
+    );
+  });
 };
