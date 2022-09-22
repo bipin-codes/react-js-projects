@@ -1,0 +1,5 @@
+{
+  // present-env -> ES6 to ES5
+  //preset-react -> React to ES5 or whicheven version is required by browser.
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
